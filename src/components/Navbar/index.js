@@ -45,7 +45,7 @@ const Navbar = () => {
     <>
       <div className="flex justify-center">
         <nav
-          className={`fixed w-3/4 shadow-lg m-8 rounded-lg z-20 duration-200 ${
+          className={`fixed w-3/4 shadow-lg md:mx-8 top-6 rounded-lg z-20 duration-200 ${
             lastScrollTop === 0 ? " bg-gray-700" : "backdrop-blur-md"
           } ${!isScrollTop ? "opacity-0" : ""}`}
         >
