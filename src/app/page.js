@@ -1,12 +1,11 @@
 import React from "react";
-import AboutMe from "@/components/Content/AboutMe"
+import AboutMe from "@/components/Content/AboutMe";
 
 const Home = () => {
   return (
     <>
       <AboutMe />
     </>
-    
   );
 };
 
