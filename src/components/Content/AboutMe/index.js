@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import {
   FaBrain,
+  FaCogs,
   FaDatabase,
   FaDocker,
   FaEnvelope,
@@ -18,7 +19,6 @@ import {
 import {
   SiJavascript,
   SiMysql,
-  SiOdoo,
   SiPostgresql,
 } from "react-icons/si";
 import { MdApi, MdAutoAwesome, MdBugReport, MdWeb } from "react-icons/md";
@@ -45,7 +45,7 @@ const techStacks = [
   {
     category: "ERP & Backend",
     items: [
-      { name: "Odoo", icon: SiOdoo },
+      { name: "Odoo", icon: FaCogs },
       { name: "Python", icon: FaPython },
       { name: "PostgreSQL", icon: SiPostgresql },
     ],
@@ -85,12 +85,12 @@ const techStacks = [
 ];
 
 const services = [
-  { title: "Custom Odoo Module Development", icon: SiOdoo },
+  { title: "Custom Odoo Module Development", icon: FaCogs },
   { title: "Odoo Business Workflow Customization", icon: FaDatabase },
   { title: "QWeb Report Development", icon: MdWeb },
   { title: "Laravel Web Application Development", icon: FaLaravel },
   { title: "REST API & Third-Party Integration", icon: MdApi },
-  { title: "Odoo Website & Backend Customization", icon: SiOdoo },
+  { title: "Odoo Website & Backend Customization", icon: FaCogs },
   { title: "ERP Automation", icon: MdAutoAwesome },
   { title: "Bug Fixing & Performance Improvement", icon: MdBugReport },
   { title: "AI Integration for ERP & Business Automation", icon: FaBrain },
@@ -106,9 +106,18 @@ const currentWork = [
 ];
 
 const githubStats = [
-  "https://github-readme-stats.vercel.app/api?username=mrayhanabdillah&show_icons=true&theme=tokyonight&hide_border=true",
-  "https://github-readme-stats.vercel.app/api/top-langs?username=mrayhanabdillah&layout=compact&theme=tokyonight&hide_border=true",
-  "https://streak-stats.demolab.com?user=mrayhanabdillah&theme=tokyonight&hide_border=true",
+  {
+    src: "https://github-readme-stats.vercel.app/api?username=mrayhanabdillah&show_icons=true&theme=tokyonight&hide_border=true",
+    alt: "Muhammad Rayhan Abdillah GitHub profile statistics",
+  },
+  {
+    src: "https://github-readme-stats.vercel.app/api/top-langs?username=mrayhanabdillah&layout=compact&theme=tokyonight&hide_border=true",
+    alt: "Muhammad Rayhan Abdillah most used programming languages",
+  },
+  {
+    src: "https://streak-stats.demolab.com?user=mrayhanabdillah&theme=tokyonight&hide_border=true",
+    alt: "Muhammad Rayhan Abdillah GitHub contribution streak",
+  },
 ];
 
 const contacts = [
@@ -270,7 +279,7 @@ const AboutMe = () => {
         <SectionHeading
           eyebrow="About Me"
           title="Developer focused on practical business systems"
-          description="I'm an Odoo Developer and Web Developer passionate about building business solutions, ERP customizations, web applications, and automation tools."
+          description="I am an Odoo Developer and Web Developer passionate about building business solutions, ERP customizations, web applications, and automation tools."
         />
         <div className="grid gap-4 md:grid-cols-2">
           {aboutItems.map((item) => (
@@ -368,23 +377,26 @@ const AboutMe = () => {
       </section>
 
       <section id="github" className="mx-auto max-w-7xl px-5 py-20 md:px-8">
-        <SectionHeading
-          eyebrow="GitHub Stats"
-          title="Development activity and language overview"
-        />
-        <div className="grid gap-5 lg:grid-cols-2">
-          {githubStats.map((src, index) => (
+          <SectionHeading
+            eyebrow="GitHub Stats"
+            title="Development activity and language overview"
+          />
+          <div className="grid gap-5 lg:grid-cols-2">
+          {githubStats.map(({ src, alt }, index) => (
             <div
               className={`reveal rounded-lg border border-white/10 bg-white/[0.04] p-3 ${
                 index === 2 ? "lg:col-span-2" : ""
               }`}
               key={src}
             >
-              <img
+              <Image
                 src={src}
-                alt={`GitHub statistics ${index + 1}`}
+                alt={alt}
+                width={640}
+                height={220}
+                sizes="(max-width: 1024px) 100vw, 640px"
+                unoptimized
                 className="github-stat-image mx-auto h-auto w-full max-w-2xl"
-                loading="lazy"
               />
             </div>
           ))}
@@ -395,8 +407,8 @@ const AboutMe = () => {
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <SectionHeading
             eyebrow="Contact"
-            title="Let's connect and build something useful"
-            description="I enjoy turning complex business processes into simple and efficient Odoo workflows, and I'm always excited to explore how AI can make software and business systems smarter."
+            title="Let us connect and build something useful"
+            description="I enjoy turning complex business processes into simple and efficient Odoo workflows, and I am always excited to explore how AI can make software and business systems smarter."
           />
           <div className="grid gap-5 md:grid-cols-3">
             {contacts.map(({ label, value, href, icon: Icon }) => (
@@ -421,7 +433,7 @@ const AboutMe = () => {
       </section>
 
       <footer className="border-t border-white/10 bg-[#080a12] px-5 py-8 text-center text-sm text-slate-400">
-        © {currentYear} Muhammad Rayhan Abdillah. Odoo Developer & Web
+        &copy; {currentYear} Muhammad Rayhan Abdillah. Odoo Developer & Web
         Developer.
       </footer>
     </main>

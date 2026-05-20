@@ -23,6 +23,8 @@ html {
 body {
   min-height: 100vh;
   background-color: #080a12;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono",
+    monospace;
 }
 
 section {
