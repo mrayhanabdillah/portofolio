@@ -1,10 +1,65 @@
-img{
-    border-radius:100%;
-    -webkit-border-radius:100%;
-    -moz-border-radius:100%;
-    -ms-border-radius:100%;
-    -o-border-radius:100%;
-    
-
+.profile-image {
+  border-radius: 9999px;
 }
 
+.github-stat-image {
+  border-radius: 8px;
+}
+
+.typing-role {
+  display: inline-block;
+  animation: typingFade 2400ms ease-in-out infinite;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-hover {
+  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease,
+    background-color 220ms ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(215, 166, 203, 0.55);
+  background-color: rgba(113, 75, 103, 0.16);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+@keyframes typingFade {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  16%,
+  82% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typing-role,
+  .reveal,
+  .card-hover {
+    animation: none;
+    transition: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

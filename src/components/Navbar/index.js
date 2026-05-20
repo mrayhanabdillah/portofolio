@@ -1,138 +1,91 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { MenuAlt1Icon, XCircleIcon } from "@heroicons/react/outline";
-import {
-  HomeIcon,
-  CollectionIcon,
-  DeviceMobileIcon,
-} from "@heroicons/react/solid";
+
+const navItems = [
+  { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
+  { label: "Stack", href: "#stack" },
+  { label: "Services", href: "#services" },
+  { label: "Contact", href: "#contact" },
+];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const [isScrollTop, setIsScrollTop] = useState(true); // Diatur sebagai true awalnya
-  const [lastScrollTop, setLastScrollTop] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    // Fungsi untuk menangani event scroll
     const handleScroll = () => {
-      const scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
-
-      setIsScrollTop(scrollTop < lastScrollTop ? true : false);
-      setLastScrollTop(scrollTop); // Menyimpan posisi scroll terakhir
-      console.log(scrollTop);
-      console.log("Last:", lastScrollTop);
-      console.log(isScrollTop);
+      setIsScrolled(window.scrollY > 24);
     };
 
-    // Menambahkan event listener pada saat komponen dimount
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
 
-    // Membersihkan event listener pada saat komponen di-unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [lastScrollTop]); // Dipanggil hanya sekali saat komponen dimount
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <>
-      <div className="flex justify-center">
-        <nav
-          className={`fixed w-3/4 shadow-lg md:mx-8 top-6 rounded-lg z-20 duration-200 ${
-            lastScrollTop === 0 ? " bg-gray-700" : "backdrop-blur-md"
-          } ${!isScrollTop ? "opacity-0" : ""}`}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center py-4  md:space-x-10">
-              <div className="flex justify-start lg:w-0 lg:flex-1">
-                <Link href="/">
-                  <h1 className="text-2xl">MRA</h1>
-                </Link>
-              </div>
-              <div className="flex md:hidden">
-                <button
-                  onClick={toggleMenu}
-                  className="text-gray-400 focus:outline-none"
-                  aria-label="Toggle menu"
-                >
-                  {isOpen ? (
-                    <XCircleIcon className="h-6 w-6" aria-hidden="true" />
-                  ) : (
-                    <MenuAlt1Icon className="h-6 w-6" aria-hidden="true" />
-                  )}
-                </button>
-              </div>
-              <div className="hidden md:flex md:flex-row md:gap-10">
-                <Link
-                  href="/"
-                  className="hover:bg-slate-100 hover:text-gray-800 ease-in duration-100 p-3 rounded-md"
-                >
-                  <div className="flex items-center">
-                    <HomeIcon className="h-6 w-6 mr-1" aria-hidden="true" />
-                    Home
-                  </div>
-                </Link>
-                <Link
-                  href="/"
-                  className="hover:bg-slate-100 hover:text-gray-800 ease-in duration-100 p-3 rounded-md"
-                >
-                  <div className="flex items-center">
-                    <CollectionIcon
-                      className="h-6 w-6 mr-1"
-                      aria-hidden="true"
-                    />
-                    Projects
-                  </div>
-                </Link>
-                <Link
-                  href="/"
-                  className="hover:bg-slate-100 hover:text-gray-800 ease-in duration-100 p-3 rounded-md"
-                >
-                  <div className="flex items-center">
-                    <DeviceMobileIcon
-                      className="h-6 w-6 mr-1"
-                      aria-hidden="true"
-                    />
-                    Contact
-                  </div>
-                </Link>
-              </div>
-            </div>
+    <header className="fixed inset-x-0 top-4 z-50 px-4">
+      <nav
+        className={`mx-auto max-w-6xl rounded-lg border px-4 transition duration-200 md:px-6 ${
+          isScrolled
+            ? "border-white/10 bg-[#080a12]/80 shadow-2xl shadow-black/30 backdrop-blur-xl"
+            : "border-white/10 bg-white/[0.06] backdrop-blur-md"
+        }`}
+      >
+        <div className="flex h-16 items-center justify-between">
+          <Link
+            href="#home"
+            className="text-lg font-black tracking-[0.18em] text-white"
+            onClick={() => setIsOpen(false)}
+          >
+            MRA
+          </Link>
+
+          <button
+            onClick={() => setIsOpen((value) => !value)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-white/10 text-slate-200 md:hidden"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? (
+              <XCircleIcon className="h-6 w-6" aria-hidden="true" />
+            ) : (
+              <MenuAlt1Icon className="h-6 w-6" aria-hidden="true" />
+            )}
+          </button>
+
+          <div className="hidden items-center gap-1 md:flex">
+            {navItems.map((item) => (
+              <Link
+                href={item.href}
+                className="rounded-md px-4 py-2 text-sm font-semibold text-slate-300 transition hover:bg-white/10 hover:text-white"
+                key={item.href}
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
-          {isOpen && (
-            <div className="md:hidden">
-              <div className="grid justify-center  px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <Link
-                  href="/"
-                  className="text-center hover:bg-slate-100 hover:text-gray-800 ease-in duration-100 p-3 rounded-md"
-                >
-                  Home
-                </Link>
-                <Link
-                  href="/"
-                  className="text-center hover:bg-slate-100 hover:text-gray-800 ease-in duration-100 p-3 rounded-md"
-                >
-                  Projects
-                </Link>
-                <Link
-                  href="/"
-                  className="text-center hover:bg-slate-100 hover:text-gray-800 ease-in duration-100 p-3 rounded-md"
-                >
-                  Contact
-                </Link>
-              </div>
-            </div>
-          )}
-        </nav>
-      </div>
-    </>
+        </div>
+
+        {isOpen ? (
+          <div className="grid gap-1 border-t border-white/10 py-3 md:hidden">
+            {navItems.map((item) => (
+              <Link
+                href={item.href}
+                className="rounded-md px-3 py-3 text-center text-sm font-semibold text-slate-200 transition hover:bg-white/10"
+                key={item.href}
+                onClick={() => setIsOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        ) : null}
+      </nav>
+    </header>
   );
 };
 
